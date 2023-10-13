@@ -12,6 +12,7 @@
   "plugins": ["@typescript-eslint"],
   "root": true,
   "env": {
+    "es2021": true,
     "node": true // Enable Node.js global variables
   },
   "rules": {
