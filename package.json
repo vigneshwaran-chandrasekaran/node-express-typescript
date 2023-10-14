@@ -6,11 +6,13 @@
   "scripts": {
     "prebuild": "rimraf ./build",
     "build": "tsc",
-    "start": "node src",
+    "start": "npm run build && node build/index.js",
+    "start:dev": "npx nodemon",
     "dev": "ts-node src",
     "dev:watch": "nodemon src -e ts,json --exec 'npm run dev'",
     "lint": "eslint src",
     "lint:fix": "npx eslint . --fix",
+    "lint-and-fix": "eslint . --ext .ts --fix",
     "format": "npx prettier --write src",
     "test": "jest",
     "test:coverage": "jest --coverage"
