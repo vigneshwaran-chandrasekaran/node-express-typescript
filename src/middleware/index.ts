@@ -1,3 +1,3 @@
-import logs from "./logs.js";
+import logs from "./logs";
 
 export { logs };
