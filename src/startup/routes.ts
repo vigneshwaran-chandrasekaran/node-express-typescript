@@ -8,6 +8,7 @@ interface Error {
 
 function application(app: any) {
   app.use(express.json());
+  app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
   app.get("/", (req: Request, res: Response) => {
     res.json({ data: "welcome to Node js Typescript" });
   });
