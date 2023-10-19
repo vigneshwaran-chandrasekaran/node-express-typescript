@@ -39,10 +39,17 @@ routes(app);
 
 const PORT = env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Running on PORT ${PORT}`);
-  console.log(`Server running on http://localhost:${PORT}/`);
-});
+const start = async (): Promise<void> => {
+  try {
+    app.listen(PORT, () => {
+      console.log(`Running on PORT ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+void start();
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   /**
