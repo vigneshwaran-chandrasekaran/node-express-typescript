@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import constants from "../routes/constants";
+import fruits from "../routes/fruit.route";
 
 interface Error {
   status?: number;
@@ -16,6 +17,7 @@ function application(app: any) {
     res.json({ data: "welcome to Node js Typescript" });
   });
   app.use("/api/v1/constants", constants);
+  app.use("/api/v1/fruits", fruits);
 
   app.use("*", (req: Request, res: Response, next: NextFunction) => {
     const err: Error = new Error();
