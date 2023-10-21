@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import constants from "../routes/constants";
 import fruits from "../routes/fruit.route";
+import books from "../routes/book.route";
 
 interface Error {
   status?: number;
@@ -9,7 +10,7 @@ interface Error {
 
 function application(app: any) {
   app.use(express.json());
-  app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
+  app.get("/favicon.ico", (req: Request, res: Response) => res.status(204));
   app.get("/", (req: Request, res: Response) => {
     res.json({ data: "welcome to Node js Typescript" });
   });
@@ -18,6 +19,7 @@ function application(app: any) {
   });
   app.use("/api/v1/constants", constants);
   app.use("/api/v1/fruits", fruits);
+  app.use("/api/v1/books", books);
 
   app.use("*", (req: Request, res: Response, next: NextFunction) => {
     const err: Error = new Error();
