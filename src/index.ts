@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import HttpStatus from "http-status-codes";
-import { routes, cors, connectToDB, db } from "./startup";
+import { routes, cors, connectToDB } from "./startup";
 import { unCaughtException, unHandledRejection } from "./utils/constants";
 import { logs } from "./middleware";
 import { env } from "./utils";
@@ -69,28 +69,16 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const start = async (): Promise<void> => {
+const main = async (): Promise<void> => {
   try {
+    await connectToDB();
     app.listen(PORT, () => {
       console.log(`Running on PORT ${PORT}`);
     });
   } catch (error) {
-    console.error(error);
+    console.error("An error occurred:", error);
     process.exit(1);
   }
 };
-
-async function main() {
-  try {
-    await connectToDB();
-    // Your code that uses the MongoDB connection
-    void start();
-  } catch (error) {
-    console.error("An error occurred:", error);
-  } finally {
-    // Optionally, close the connection when done
-    db.close();
-  }
-}
 
 main();
