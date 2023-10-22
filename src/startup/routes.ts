@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import constants from "../routes/constants";
+import constants from "../routes/constants.route";
 import fruits from "../routes/fruit.route";
 import books from "../routes/book.route";
 

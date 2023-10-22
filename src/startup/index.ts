@@ -1,5 +1,5 @@
-import routes from './routes';
-import cors from './cors';
-import connectMongoDB from './db';
+import routes from "./routes";
+import cors from "./cors";
+import { connectToDB, db } from "./db";
 
-export { routes, cors, connectMongoDB };
+export { routes, cors, connectToDB, db };

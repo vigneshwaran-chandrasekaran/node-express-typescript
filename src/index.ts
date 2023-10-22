@@ -3,14 +3,15 @@ import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import HttpStatus from "http-status-codes";
-import { routes, cors, connectMongoDB } from "./startup";
+import { routes, cors, connectToDB, db } from "./startup";
 import { unCaughtException, unHandledRejection } from "./utils/constants";
 import { logs } from "./middleware";
 import { env } from "./utils";
 import * as dotenv from "dotenv";
 dotenv.config();
-const app = express();
 
+const PORT = env.PORT || 3000;
+const app = express();
 interface Error {
   status?: number;
   keyValue?: any;
@@ -32,24 +33,9 @@ process.on("unhandledRejection", (ex) => {
 app.use(morgan("dev"));
 app.use(express.static(env.IMAGES_FOLDER));
 app.use(helmet());
-connectMongoDB();
 app.use(logs);
 cors(app);
 routes(app);
-
-const PORT = env.PORT || 3000;
-
-const start = async (): Promise<void> => {
-  try {
-    app.listen(PORT, () => {
-      console.log(`Running on PORT ${PORT}`);
-    });
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
-void start();
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   /**
@@ -82,3 +68,29 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     stack: env.NODE_ENV === "production" ? null : err.stack,
   });
 });
+
+const start = async (): Promise<void> => {
+  try {
+    app.listen(PORT, () => {
+      console.log(`Running on PORT ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+async function main() {
+  try {
+    await connectToDB();
+    // Your code that uses the MongoDB connection
+    void start();
+  } catch (error) {
+    console.error("An error occurred:", error);
+  } finally {
+    // Optionally, close the connection when done
+    db.close();
+  }
+}
+
+main();
