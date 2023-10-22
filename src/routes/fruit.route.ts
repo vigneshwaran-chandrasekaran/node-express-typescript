@@ -15,6 +15,15 @@ router.get("/:id", async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(fruit);
 });
 
+router.get(
+  "/name/:fruitName",
+  async (req: Request, res: Response): Promise<Response> => {
+    const { fruitName }: any = req.params;
+    const fruit = await FruitModel.findByFruitName(fruitName);
+    return res.status(200).json(fruit);
+  }
+);
+
 router.post("/", async (req: Request, res: Response): Promise<Response> => {
   const fruit: Fruit = await FruitModel.create({ ...req.body });
   return res.status(201).json(fruit);
