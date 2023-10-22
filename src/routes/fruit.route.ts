@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
-import { FruitModel, Fruit } from "../models/fruit";
+import { FruitModel, Fruit } from "../models/fruit.model";
 
 const router = express.Router();
 
