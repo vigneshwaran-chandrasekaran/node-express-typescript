@@ -10,7 +10,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 console.log("env", env);
-const PORT = env.PORT || 3000;
+const PORT = env.PORT || 8081;
 const app = express();
 
 process.on("uncaughtException", (ex) => {
