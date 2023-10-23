@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import HttpStatus from "http-status-codes";
 import { BookModel, Book } from "../models/book.model";
 
 const LIMIT: number = 10;
@@ -52,10 +53,21 @@ export const getBooks = async (
         pageSize,
       },
     });
-
-    // const fruits: Book[] = await BookModel.find();
-    // return res.status(200).json(fruits);
   } catch (error) {
     return next(error);
+  }
+};
+
+export const createBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const data = req.body;
+    const book: Book = await BookModel.create(data);
+    res.status(HttpStatus.CREATED).json({ data: book });
+  } catch (error) {
+    next(error);
   }
 };
