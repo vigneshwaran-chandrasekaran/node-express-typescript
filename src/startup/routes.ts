@@ -3,6 +3,7 @@ import HttpStatus from "http-status-codes";
 import constants from "../routes/constants.route";
 import fruits from "../routes/fruit.route";
 import books from "../routes/book.route";
+import contacts from "../routes/contact.route";
 import { env } from "../utils";
 
 interface Error {
@@ -27,6 +28,7 @@ function application(app: any) {
   app.use("/api/v1/constants", constants);
   app.use("/api/v1/fruits", fruits);
   app.use("/api/v1/books", books);
+  app.use("/api/v1/contact-us", contacts);
 
   app.use("*", (req: Request, res: Response, next: NextFunction) => {
     const err: Error = new Error();
@@ -53,6 +55,7 @@ function application(app: any) {
       });
     }
     if (err.name === "ValidationError") {
+      console.log('-------ValidationError-------');
       const errors: any = {};
       Object.keys(err.errors).forEach((key) => {
         errors[key] = err.errors[key].message;
