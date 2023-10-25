@@ -1,3 +1,4 @@
 import logs from "./logs";
+import validator from "./validation";
 
-export { logs };
+export { logs, validator };

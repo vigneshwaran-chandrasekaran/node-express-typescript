@@ -17,7 +17,7 @@ type PropertyType = "body" | "query";
 
 function validator(schema: any, property: PropertyType = "body") {
   return function validate(
-    req: RequestCustom,
+    req: any,
     res: Response,
     next: NextFunction
   ) {

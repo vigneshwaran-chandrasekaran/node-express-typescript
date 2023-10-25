@@ -1,5 +1,7 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
+import { validator } from "../middleware";
+import { contactJoiSchema } from "../validators/contact.validator";
 import {
   getContactUsList,
   createContactUs,
@@ -16,6 +18,6 @@ const apiLimiter = rateLimit({
 });
 
 router.get("/", getContactUsList);
-router.post("/", [apiLimiter], createContactUs);
+router.post("/", [apiLimiter, validator(contactJoiSchema)], createContactUs);
 
 export default router;

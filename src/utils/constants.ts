@@ -15,9 +15,22 @@ const mobileMax = [
   "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX}).",
 ];
 
+const ERRORS = {
+  users: {
+    mobile: "Mobile number already exists",
+    email: "Email already exists",
+    notAvailable: "No such user exists",
+    inValid: "User credentials are invalid",
+    validEmail: "Email must be a valid email address",
+    trim: "Email may not contain any spaces at the beginning or end",
+    empty: "Email is required",
+  },
+};
+
 export {
   unCaughtException,
   unHandledRejection,
+  ERRORS,
   mobileMin,
   mobileMax,
   mobileStarts,
