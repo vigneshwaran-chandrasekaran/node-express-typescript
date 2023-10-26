@@ -10,6 +10,15 @@ interface Query {
   pageSize?: number;
 }
 
+async function checkIfBookExistsById(_id: string) {
+  try {
+    return await BookModel.findById({ _id });
+  } catch (error) {
+    console.log("error", error);
+    return error;
+  }
+}
+
 export const getBooks = async (
   req: Request,
   res: Response,
@@ -77,15 +86,66 @@ export const getBook = async (
 };
 
 export const createBook = async (
-  req: Request,
+  req: any,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const data = req.body;
+    const data = req.validInputs;
     const book: Book = await BookModel.create(data);
     res.status(HttpStatus.CREATED).json({ data: book });
   } catch (error) {
     next(error);
+  }
+};
+
+export const updateBook = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const ifExists: any = await checkIfBookExistsById(id);
+
+    if (!ifExists?._id) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        errors: "Book Not Found!",
+      });
+    }
+
+    const updatedBook = await BookModel.findByIdAndUpdate(id, req.validInputs, {
+      new: true,
+      runValidators: true,
+    });
+
+    return res.status(HttpStatus.OK).json({ data: updatedBook });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const deleteBook = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    let book = await BookModel.findById(id);
+
+    if (!book?._id) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        errors: "Book Not Found!",
+      });
+    }
+
+    book = await BookModel.findOneAndDelete(
+      { _id: id },
+      { new: true, runValidators: true }
+    );
+    return res.status(HttpStatus.OK).json({ data: book });
+  } catch (error) {
+    return next(error);
   }
 };
