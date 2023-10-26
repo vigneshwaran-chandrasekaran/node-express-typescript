@@ -58,6 +58,24 @@ export const getBooks = async (
   }
 };
 
+export const getBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const book = await BookModel.findById(id);
+
+    if (book) {
+      return res.status(HttpStatus.OK).json({ data: book });
+    }
+    return res.status(HttpStatus.NOT_FOUND).json({ errors: "Book Not found!" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export const createBook = async (
   req: Request,
   res: Response,

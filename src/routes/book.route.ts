@@ -1,9 +1,12 @@
 import express from "express";
-import { getBooks, createBook } from "../controllers/book.controller";
+import { getBooks, getBook, createBook } from "../controllers/book.controller";
+import { validator, checkValidMongoId } from "../middleware";
+import { commonQueryJoiSchema } from "../validators";
 
 const router = express.Router();
 
-router.get("/", getBooks);
+router.get("/", [validator(commonQueryJoiSchema, "query")], getBooks);
+router.get('/:id', [checkValidMongoId], getBook);
 router.post("/", createBook);
 
 export default router;
