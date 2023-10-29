@@ -21,7 +21,6 @@ async function checkIfUserExists(mobile: number, email: string) {
   try {
     return await UserModel.findOne({ $or: [{ mobile }, { email }] });
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 }
@@ -30,7 +29,6 @@ async function checkValidUser(email: string) {
   try {
     return await UserModel.findOne({ email });
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 }
@@ -38,11 +36,10 @@ async function checkValidUser(email: string) {
 export const getUser = async (req: any, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
+    const user = await UserModel.findById(id);
 
-    const client = await UserModel.findById(id);
-
-    if (client) {
-      return res.status(HttpStatus.OK).json({ data: client });
+    if (user) {
+      return res.status(HttpStatus.OK).json({ data: user });
     }
     return res.status(HttpStatus.NOT_FOUND).json({ errors: "User not found" });
   } catch (error) {
@@ -74,7 +71,6 @@ export const getUsers = async (req: any, res: Response, next: NextFunction) => {
     }
 
     const startIndex = (Number(page) - 1) * pageSize; // get the starting index of every page
-
     const total = await UserModel.countDocuments({});
     const users = await UserModel.find()
       .select(["-password"])
@@ -120,7 +116,7 @@ export const userSignup = async (
       });
     }
 
-    if (password.toLowerCase().includes("password")) {
+    if (password.toLowerCase().includes("   ")) {
       return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
         errors: {
           password: 'Passwords should not contain the word "password"',
