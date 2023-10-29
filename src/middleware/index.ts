@@ -1,5 +1,6 @@
+import auth from "./auth";
+import checkValidMongoId from "./checkValidMongoId";
 import logs from "./logs";
 import validator from "./validation";
-import checkValidMongoId from "./checkValidMongoId";
 
-export { logs, validator, checkValidMongoId };
+export { auth, checkValidMongoId, logs, validator };
