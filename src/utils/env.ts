@@ -12,6 +12,7 @@ const env = cleanEnv(process.env, {
     choices: ["development", "test", "production", "staging"],
     default: "development",
   }),
+  JWT_PRIVATE_KEY: email({ default: "aet93eUgTXZP4mw" }),
 });
 
 export default env;

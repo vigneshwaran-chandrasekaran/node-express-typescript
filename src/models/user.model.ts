@@ -31,9 +31,6 @@ export class User {
     required: [true, "First name is required"],
     minlength: 7,
     validate(value: string) {
-      console.log("value 1111", value);
-      console.log("value 2222", value.toLowerCase().includes("password"));
-      console.log("value 3333", value.toLowerCase());
       if (value.toLowerCase().includes("password")) {
         throw new Error(' Passwords should not contain the word "password" ');
       }
