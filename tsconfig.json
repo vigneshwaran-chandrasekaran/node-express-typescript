@@ -108,8 +108,7 @@
   },
   "include": [
     "src",
-    "package.json",
-    "src/*.d.ts"
+    "package.json"
   ],
   "exclude": [
     "src/**/*.test.ts",

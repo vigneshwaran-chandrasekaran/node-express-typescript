@@ -1,4 +1,6 @@
 import { cleanEnv, str, email } from "envalid";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const env = cleanEnv(process.env, {
   IMAGES_FOLDER: str({ default: "public-images" }),
@@ -13,6 +15,7 @@ const env = cleanEnv(process.env, {
     default: "development",
   }),
   JWT_PRIVATE_KEY: str({ default: "aet93eUgTXZP4mw" }),
+  SEE: str(),
 });
 
 export default env;

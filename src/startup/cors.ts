@@ -1,6 +1,4 @@
 import cors from "cors";
-import * as dotenv from "dotenv";
-dotenv.config();
 import { env } from "../utils";
 
 const corsAllowed: string = env.CORS_ALLOWED as string;

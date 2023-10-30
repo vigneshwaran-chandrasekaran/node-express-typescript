@@ -6,8 +6,6 @@ import { routes, cors, connectToDB } from "./startup";
 import { unCaughtException, unHandledRejection } from "./utils/constants";
 import { logs } from "./middleware";
 import { env } from "./utils";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 console.log("env", env);
 const PORT = env.PORT || 8081;
