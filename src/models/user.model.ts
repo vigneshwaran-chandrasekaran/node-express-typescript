@@ -49,8 +49,6 @@ export class User {
   @prop({
     required: false,
     default: false,
-    trim: true,
-    lowercase: true,
   })
   public isAdmin!: boolean;
 }

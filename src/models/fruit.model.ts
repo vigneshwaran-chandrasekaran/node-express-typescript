@@ -8,7 +8,8 @@ import {
 
 /**
  * This will execute before the save call execute
- */ @pre<Fruit>("save", function () {
+ */
+@pre<Fruit>("save", function () {
   this.isLowPrice = this.price < 5;
 })
 /**

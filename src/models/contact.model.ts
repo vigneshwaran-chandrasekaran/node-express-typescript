@@ -1,5 +1,4 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
-import { mobileMin, mobileMax } from '../utils/constants';
 
 export class Contact {
   @prop({ required: false, trim: true, lowercase: true  })
@@ -8,7 +7,7 @@ export class Contact {
   @prop({ required: true, trim: true, lowercase: true })
   public email!: string;
 
-  @prop({ required: false, min: mobileMin, max: mobileMax  })
+  @prop({ required: false, maxlength: 10, minlength: 10  })
   public mobile!: string;
 
   @prop({ required: false, trim: true, lowercase: true })
