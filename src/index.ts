@@ -2,6 +2,7 @@ import "express-async-errors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import compression from "compression";
 import { routes, cors, connectToDB } from "./startup";
 import { unCaughtException, unHandledRejection } from "./utils/constants";
 import { logs } from "./middleware";
@@ -19,6 +20,7 @@ process.on("unhandledRejection", (ex) => {
   console.log(unHandledRejection, ex);
 });
 
+app.use(compression());
 app.use(morgan("dev"));
 app.use(express.static(env.IMAGES_FOLDER));
 app.use(helmet());
