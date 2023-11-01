@@ -6,7 +6,6 @@ import axios, {
 
 // Create an Axios instance
 const api: AxiosInstance = axios.create({
-  baseURL: "https://api.example.com", // Your API's base URL
   timeout: 5000, // Request timeout in milliseconds
 });
 

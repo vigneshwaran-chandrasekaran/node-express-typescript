@@ -5,6 +5,7 @@ import fruits from "../routes/fruit.route";
 import books from "../routes/book.route";
 import users from "../routes/user.route";
 import contacts from "../routes/contact.route";
+import comments from "../routes/comment.route";
 import { env } from "../utils";
 
 interface Error {
@@ -31,6 +32,7 @@ function application(app: any) {
   app.use("/api/v1/books", books);
   app.use("/api/v1/contact-us", contacts);
   app.use("/api/v1/users", users);
+  app.use("/api/v1/comments", comments);
 
   app.use("*", (req: Request, res: Response, next: NextFunction) => {
     const err: Error = new Error();
