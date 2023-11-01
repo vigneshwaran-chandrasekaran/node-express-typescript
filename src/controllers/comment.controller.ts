@@ -1,17 +1,25 @@
 import { Request, Response, NextFunction } from "express";
 import { getCommentsData } from "../services/comment.service";
 
+interface IComment {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}
+
 export const getComments = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<any> => {
   try {
-    const comments: any = await getCommentsData();
+    const comments: IComment[] = await getCommentsData();
     return res.json({
-      data: comments?.data,
+      data: comments,
       meta: {
-        total: comments?.data?.length,
+        total: comments?.length,
       },
     });
   } catch (error) {
